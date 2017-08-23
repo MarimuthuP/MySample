@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MyExample</string>
+    <string name="kyats">MMK</string>
+    <string name="input_fields">Input Fields</string>
+    <string name="popup_type">Types of Popup</string>
+
+    <string name="simple_popup">Simple Default Popup</string>
+    <string name="custom_popup">Custom Popup</string>
+    <string name="common_popup">Common Popup</string>
+
+    <string name="title_input_field">Input Fields</string>
+    <string name="title_popup">Popup Types</string>
+    <string name="title_menu">Menu Option</string>
+</resources>
