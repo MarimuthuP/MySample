@@ -124,7 +124,7 @@ public class PopupTypeFragment extends Fragment implements View.OnClickListener{
     }
 
     /**
-     * This method is used to made and show the custom toast
+     * This method is used to made and show the custom toast. it was committed on 23Aug17
      */
     public void customToast(){
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
