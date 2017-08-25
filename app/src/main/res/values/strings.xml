@@ -3,12 +3,23 @@
     <string name="kyats">MMK</string>
     <string name="input_fields">Input Fields</string>
     <string name="popup_type">Types of Popup</string>
+    <string name="custom_toast_type">Types of Toast</string>
 
     <string name="simple_popup">Simple Default Popup</string>
     <string name="custom_popup">Custom Popup</string>
     <string name="common_popup">Common Popup</string>
+    <string name="common_popup_list">Common Popup with RecyclerView</string>
+    <string name="common_popup_inputfield">Common Popup with InputField</string>
 
     <string name="title_input_field">Input Fields</string>
     <string name="title_popup">Popup Types</string>
     <string name="title_menu">Menu Option</string>
+
+    <string name="alert_title">Alert Dialog</string>
+    <string name="alert_list_title">Alert Dialog with List</string>
+    <string name="alert_message">This is a Alert Message</string>
+    <string name="alert_message2">Next Message</string>
+    <string name="ok_text">Ok</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="enter_amount">Enter Amount</string>
 </resources>
