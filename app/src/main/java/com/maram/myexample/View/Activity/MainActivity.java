@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.maram.myexample.Presenter.IMainCommunicator;
 import com.maram.myexample.Presenter.IEnteredAmountValidation;
+import com.maram.myexample.Presenter.IPopupCommunicatorFromList;
+import com.maram.myexample.Presenter.IPopupItemClickedFromList;
 import com.maram.myexample.Presenter.IReceiveAmount;
 import com.maram.myexample.R;
 import com.maram.myexample.View.Fragment.InputFieldListFragment;
@@ -23,7 +25,7 @@ import com.maram.myexample.View.Fragment.MenuFragment;
 import com.maram.myexample.View.Fragment.PopupTypeFragment;
 import com.maram.myexample.View.Utils.MyConstant;
 
-public class MainActivity extends AppCompatActivity implements IEnteredAmountValidation, IMainCommunicator {
+public class MainActivity extends AppCompatActivity implements IEnteredAmountValidation, IMainCommunicator, IPopupCommunicatorFromList {
 
     /**
      * This is the framelayout variable to get the details.
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
      * Drawer Layout
      */
     DrawerLayout drawerLayoutLeftMenu;
+
+    public IPopupItemClickedFromList iPopupItemClickedFromList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,5 +207,10 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void callToDismissDialog(String valueText, int keyValue) {
+        iPopupItemClickedFromList.popupItemClicked(valueText,keyValue);
     }
 }

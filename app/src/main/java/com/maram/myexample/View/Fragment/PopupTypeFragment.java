@@ -4,24 +4,37 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.maram.myexample.Presenter.IMainCommunicator;
+import com.maram.myexample.Presenter.IPopupItemClickedFromList;
 import com.maram.myexample.R;
+import com.maram.myexample.View.Activity.MainActivity;
+import com.maram.myexample.View.Pojo.PojoAlertMessage;
+import com.maram.myexample.View.Utils.MyConstant;
+import com.maram.myexample.View.customView.CommonDialogFragment;
+import com.maram.myexample.View.customView.CommonDialogWithList;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Marimuthu on 8/23/17.
  */
 
-public class PopupTypeFragment extends Fragment implements View.OnClickListener{
+public class PopupTypeFragment extends Fragment implements IPopupItemClickedFromList,View.OnClickListener{
 
     /**
      * simple default popup
@@ -39,6 +52,16 @@ public class PopupTypeFragment extends Fragment implements View.OnClickListener{
     TextView textViewCommonPopup;
 
     /**
+     * Common popup with recycler list
+     */
+    TextView textViewCommonPopupWithList;
+
+    /**
+     * Common popup with input field
+     */
+    TextView textViewCommonPopupWithInput;
+
+    /**
      * fragment layout view
      */
     View viewFragment;
@@ -48,11 +71,23 @@ public class PopupTypeFragment extends Fragment implements View.OnClickListener{
      */
     IMainCommunicator iMainCommunicator;
 
+    /**
+     * string array of ownership item
+     */
+    ArrayList<String> stringArrayListOwnership = new ArrayList<>(Arrays.asList("Individual","Private","Government","Partnership","Enter Amount"));
+
+    /**
+     * Selected value from list
+     */
+    TextView textViewSelectedValueFromList;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         iMainCommunicator = (IMainCommunicator)activity;
+        ((MainActivity)activity).iPopupItemClickedFromList = this;
     }
+
 
     @Nullable
     @Override
@@ -75,6 +110,9 @@ public class PopupTypeFragment extends Fragment implements View.OnClickListener{
         textViewSimpleDefaultPopup = (TextView)viewFragment.findViewById(R.id.tv_first_popup);
         textViewCustomPopup = (TextView)viewFragment.findViewById(R.id.tv_second_popup);
         textViewCommonPopup = (TextView)viewFragment.findViewById(R.id.tv_third_popup);
+        textViewCommonPopupWithList = (TextView)viewFragment.findViewById(R.id.tv_fourth_popup);
+        textViewCommonPopupWithInput = (TextView)viewFragment.findViewById(R.id.tv_fifth_popup);
+        textViewSelectedValueFromList = (TextView)viewFragment.findViewById(R.id.tv_result);
 
         setOnClickEvent();
     }
@@ -86,6 +124,8 @@ public class PopupTypeFragment extends Fragment implements View.OnClickListener{
         textViewSimpleDefaultPopup.setOnClickListener(this);
         textViewCustomPopup.setOnClickListener(this);
         textViewCommonPopup.setOnClickListener(this);
+        textViewCommonPopupWithList.setOnClickListener(this);
+        textViewCommonPopupWithInput.setOnClickListener(this);
     }
 
     @Override
@@ -95,8 +135,16 @@ public class PopupTypeFragment extends Fragment implements View.OnClickListener{
                 callDefaultAlertDialog();
                 break;
             case R.id.tv_second_popup:
+                callDefaultAlertDialogWithTwoButtons();
                 break;
             case R.id.tv_third_popup:
+                callCustomCommonDialog();
+                break;
+            case R.id.tv_fourth_popup:
+                callCustomCommonDialogWithList();
+                break;
+            case R.id.tv_fifth_popup:
+                callCustomCommonDialogWithInputField();
                 break;
             default:
                 break;
@@ -104,23 +152,102 @@ public class PopupTypeFragment extends Fragment implements View.OnClickListener{
     }
 
     /**
+     * This is the method for invoke dialog with the list
+     */
+    private void callCustomCommonDialogWithList() {
+        DialogFragment dialogFragment;
+        dialogFragment = new CommonDialogWithList();
+        Bundle bundle = new Bundle();
+        PojoAlertMessage pojoModel = new PojoAlertMessage(getResources().getString(R.string.alert_list_title),R.mipmap.ic_launcher,
+                "","","","","",
+                true,true,false,false,false,false,false,true,false);
+        bundle.putSerializable(MyConstant.DIALOG_TEXT,pojoModel);
+        bundle.putStringArrayList("OwnerList",stringArrayListOwnership);
+        dialogFragment.setArguments(bundle);
+        dialogFragment.setCancelable(true);
+        dialogFragment.show(getFragmentManager(),"CommonDialogInput");
+    }
+
+    /**
+     * This is the method for invoke dialog with input field
+     */
+    private void callCustomCommonDialogWithInputField() {
+        DialogFragment dialogFragmentWithList;
+        dialogFragmentWithList = new CommonDialogWithList();
+        Bundle bundle = new Bundle();
+        PojoAlertMessage pojoModel = new PojoAlertMessage(getResources().getString(R.string.alert_list_title),R.mipmap.ic_launcher,
+                "","","",getResources().getString(R.string.ok_text),getResources().getString(R.string.cancel_text),
+                true,true,false,false,false,true,true,false,true);
+        bundle.putSerializable(MyConstant.DIALOG_TEXT,pojoModel);
+        //bundle.putStringArrayList("OwnerList",stringArrayListOwnership);
+        dialogFragmentWithList.setArguments(bundle);
+        dialogFragmentWithList.setCancelable(true);
+        dialogFragmentWithList.show(getFragmentManager(),"CommonDialogInput");
+    }
+
+    /**
+     * This is the method for invoke custom common dialog
+     */
+    private void callCustomCommonDialog() {
+        DialogFragment dialogFragment;
+        dialogFragment = new CommonDialogFragment();
+        Bundle bundle = new Bundle();
+        PojoAlertMessage pojoModel = new PojoAlertMessage(getResources().getString(R.string.alert_title),R.mipmap.ic_launcher,
+                getResources().getString(R.string.alert_message),getResources().getString(R.string.alert_message2),"",getResources().getString(R.string.ok_text),getResources().getString(R.string.cancel_text),
+                true,true,true,true,false,true,true);
+        bundle.putSerializable(MyConstant.DIALOG_TEXT,pojoModel);
+        dialogFragment.setArguments(bundle);
+        dialogFragment.setCancelable(true);
+        dialogFragment.show(getFragmentManager(),"CommonDialog");
+    }
+
+    /**
      *  This is used to show default alert dialog
      */
     private void callDefaultAlertDialog() {
-        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-        alertDialog.setTitle("Alert Dialog");
-        alertDialog.setMessage("Welcome to dear user.");
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT).create();
+        alertDialog.setTitle(getResources().getString(R.string.alert_title));
+        alertDialog.setMessage(getResources().getString(R.string.alert_message));
         alertDialog.setIcon(R.mipmap.ic_launcher);
 
         alertDialog.setCancelable(true);
-        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+        alertDialog.setButton(getResources().getString(R.string.ok_text), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getActivity(), "You clicked on OK", Toast.LENGTH_SHORT).show();
             }
         });
 
-
         alertDialog.show();
+    }
+
+    /**
+     * This method is used to show alert with two button action
+     */
+    public void callDefaultAlertDialogWithTwoButtons(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(getResources().getString(R.string.alert_title));
+        builder.setMessage(getResources().getString(R.string.alert_message));
+        builder.setCancelable(true);
+        builder.setPositiveButton(getResources().getString(R.string.ok_text), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getActivity(), "Ok Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setNegativeButton(getResources().getString(R.string.cancel_text), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getActivity(), "Cancel Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // we can show the popup by the desired position
+        AlertDialog dialog_card = builder.create();
+        // dlgAlert.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_card.getWindow().setGravity(Gravity.TOP);
+        dialog_card.show();
+        //builder.show();
     }
 
     /**
@@ -134,5 +261,90 @@ public class PopupTypeFragment extends Fragment implements View.OnClickListener{
         myToast.setDuration(Toast.LENGTH_LONG);
         myToast.setView(viewtoast);
         myToast.show();
+
+    }
+
+    /**
+     * Which method is used to expand the clicked view
+     * @param v
+     */
+    public static void expandView(final View v) {
+        v.measure(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        final int targetHeight = v.getMeasuredHeight();
+
+        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
+        v.getLayoutParams().height = 1;
+        v.setVisibility(View.VISIBLE);
+        Animation a = new Animation()
+        {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                v.getLayoutParams().height = interpolatedTime == 1
+                        ? LinearLayout.LayoutParams.WRAP_CONTENT
+                        : (int)(targetHeight * interpolatedTime);
+                v.requestLayout();
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(targetHeight / v.getContext().getResources().getDisplayMetrics().density));
+        v.startAnimation(a);
+    }
+
+    /**
+     * Which method is used to collapse the clicked view.
+     * @param v
+     */
+    public static void collapseView(final View v) {
+        final int initialHeight = v.getMeasuredHeight();
+
+        Animation a = new Animation()
+        {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                if(interpolatedTime == 1){
+                    v.setVisibility(View.GONE);
+                }else{
+                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
+                    v.requestLayout();
+                }
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
+        v.startAnimation(a);
+    }
+
+    @Override
+    public void popupItemClicked(String value, int keyValue) {
+        if(value.contains("Enter")){
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    callCustomCommonDialogWithInputField();
+                }
+            }, 550);
+
+        }
+        else{
+            textViewSelectedValueFromList.setText("SELECTED: "+value);
+        }
+    }
+
+    @Override
+    public void dateSelected() {
+
     }
 }

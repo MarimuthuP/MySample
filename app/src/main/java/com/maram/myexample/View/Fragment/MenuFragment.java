@@ -7,11 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
 import android.widget.TextView;
 
 import com.maram.myexample.Presenter.IMainCommunicator;
 import com.maram.myexample.R;
 import com.maram.myexample.View.Utils.MyConstant;
+import com.maram.myexample.View.Utils.AnimationUtils.FadeUpAnimation;
 
 /**
  * Created by Marimuthu on 8/21/17.
@@ -33,6 +36,11 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
      * Second menu option textview
      */
     TextView textView_second;
+
+    /**
+     * Third menu option textview
+     */
+    TextView textView_third;
 
     /**
      * which is used to access the activity methods
@@ -64,6 +72,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     public void initFragments() {
         textView_first = (TextView) viewFragment.findViewById(R.id.tv_first_option);
         textView_second = (TextView) viewFragment.findViewById(R.id.tv_second_option);
+        textView_third = (TextView) viewFragment.findViewById(R.id.tv_third_option);
         setOnClickListener();
     }
 
@@ -73,6 +82,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     public void setOnClickListener() {
         textView_first.setOnClickListener(this);
         textView_second.setOnClickListener(this);
+        textView_third.setOnClickListener(this);
     }
 
     @Override
@@ -83,6 +93,14 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.tv_second_option:
                 IMainCommunicator.openNextScreen(MyConstant.NavigateScreen.POPUP_TYPE_KEY);
+                viewFragment.findViewById(R.id.cardview_first).setVisibility(View.VISIBLE);
+                break;
+            case R.id.tv_third_option:
+                Animation a = new FadeUpAnimation(viewFragment.findViewById(R.id.cardview_first));
+                a.setInterpolator(new AccelerateInterpolator());
+                a.setDuration(300);
+                viewFragment.findViewById(R.id.cardview_first).setAnimation(a);
+                viewFragment.findViewById(R.id.cardview_first).startAnimation(a);
                 break;
             default:
                 break;
