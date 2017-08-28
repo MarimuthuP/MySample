@@ -6,8 +6,7 @@ import java.io.Serializable;
  * Created by Marimuthu on 8/24/17.
  */
 
-public class PojoAlertMessage implements Serializable{
-
+public class PojoAlertMessage implements Serializable {
 
     String alertTitle;
     int alertIcon;
