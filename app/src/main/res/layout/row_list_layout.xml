@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:clickable="true"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!--<android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardBackgroundColor="#ffffff"
+        android:visibility="gone"
+        card_view:cardUseCompatPadding="true">
+
+        <com.jas.digitalkyats.customView.CustomTextView
+            android:id="@+id/tv_row_name"
+            android:text="@string/tenthousand"
+            android:paddingTop="5dp"
+            android:textColor="@color/dark_blue"
+            android:textSize="17sp"
+            android:paddingLeft="25dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.v7.widget.CardView>-->
+
+    <TextView
+        android:id="@+id/textview_row_name"
+        android:text="@string/app_name"
+        android:paddingTop="14dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        android:background="@drawable/ripple"
+        android:clickable="true"
+        android:paddingLeft="25dp"
+        android:paddingBottom="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

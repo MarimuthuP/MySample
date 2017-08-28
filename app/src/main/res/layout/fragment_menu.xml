@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="false"
     android:background="@color/appBackcolor"
+    android:clickable="false"
     android:orientation="vertical">
 
     <LinearLayout
@@ -16,8 +16,10 @@
 
         <!-- first option -->
         <android.support.v7.widget.CardView
+            android:id="@+id/cardview_first"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
             android:background="@drawable/ripple"
             android:clickable="true"
             app:cardCornerRadius="@dimen/margin_2"
@@ -27,10 +29,10 @@
                 android:id="@+id/tv_first_option"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_15"
                 android:background="@drawable/ripple"
                 android:clickable="true"
                 android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                android:padding="@dimen/margin_15"
                 android:text="@string/input_fields"
                 android:textSize="@dimen/font_16" />
 
@@ -38,24 +40,52 @@
 
         <!-- second option -->
         <android.support.v7.widget.CardView
+            android:id="@+id/cardview_second"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_15"
-            app:cardCornerRadius="@dimen/margin_2"
+            android:animateLayoutChanges="true"
             android:background="@drawable/ripple"
             android:clickable="true"
+            app:cardCornerRadius="@dimen/margin_2"
             app:cardElevation="@dimen/margin_5">
 
             <TextView
                 android:id="@+id/tv_second_option"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_15"
                 android:background="@drawable/ripple"
                 android:clickable="true"
                 android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                android:padding="@dimen/margin_15"
                 android:text="@string/popup_type"
                 android:textSize="@dimen/font_16" />
+
+        </android.support.v7.widget.CardView>
+
+        <!-- Third option -->
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview_third"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/ripple"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/margin_2"
+            app:cardElevation="@dimen/margin_5">
+
+            <TextView
+                android:id="@+id/tv_third_option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple"
+                android:clickable="true"
+                android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                android:padding="@dimen/margin_15"
+                android:text="@string/custom_toast_type"
+                android:textSize="@dimen/font_16" />
+
 
         </android.support.v7.widget.CardView>
 
