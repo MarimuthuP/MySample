@@ -10,6 +10,7 @@
     <string name="common_popup">Common Popup</string>
     <string name="common_popup_list">Common Popup with RecyclerView</string>
     <string name="common_popup_inputfield">Common Popup with InputField</string>
+    <string name="common_popup_checkbox">Common Popup with CheckBox</string>
 
     <string name="title_input_field">Input Fields</string>
     <string name="title_popup">Popup Types</string>
@@ -21,6 +22,16 @@
     <string name="alert_message2">Next Message</string>
     <string name="ok_text">Ok</string>
     <string name="cancel_text">Cancel</string>
+    <string name="set_text">Set</string>
     <string name="enter_amount">Enter Amount</string>
     <string name="select_values">Selected</string>
+
+    <!--business holiday list-->
+    <string name="full_moon_day_of_waso">Full Moon Day of Waso</string>
+    <string name="martyrs_day">Martyrs\'s Day</string>
+    <string name="full_moon_day_of_thadingyut">Full Moon of Thadingyut</string>
+    <string name="full_moon_day_of_tazaungmone">Full Moon of Tazaungmone</string>
+    <string name="national_holiday">National Holiday</string>
+    <string name="kayin_new_year">Kayin New Year</string>
+    <string name="christmas_day">Christmas Day</string>
 </resources>

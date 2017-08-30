@@ -12,9 +12,4 @@ public interface IPopupItemClickedFromList {
      * @param keyValue - Item key
      */
     void popupItemClicked(String value, int keyValue);
-
-    /**
-     * This method used to select the date from dialog
-     */
-    void dateSelected();
 }

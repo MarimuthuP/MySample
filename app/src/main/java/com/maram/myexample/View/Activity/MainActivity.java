@@ -3,15 +3,19 @@ package com.maram.myexample.View.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.maram.myexample.Presenter.IMainCommunicator;
@@ -23,7 +27,14 @@ import com.maram.myexample.R;
 import com.maram.myexample.View.Fragment.InputFieldListFragment;
 import com.maram.myexample.View.Fragment.MenuFragment;
 import com.maram.myexample.View.Fragment.PopupTypeFragment;
+import com.maram.myexample.View.Pojo.PojoClosingDays;
+import com.maram.myexample.View.Pojo.PojoWorkingDays;
 import com.maram.myexample.View.Utils.MyConstant;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements IEnteredAmountValidation, IMainCommunicator, IPopupCommunicatorFromList {
 

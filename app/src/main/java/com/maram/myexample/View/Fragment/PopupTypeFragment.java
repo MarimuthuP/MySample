@@ -16,6 +16,7 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.maram.myexample.Presenter.IMainCommunicator;
@@ -23,6 +24,8 @@ import com.maram.myexample.Presenter.IPopupItemClickedFromList;
 import com.maram.myexample.R;
 import com.maram.myexample.View.Activity.MainActivity;
 import com.maram.myexample.View.Pojo.PojoAlertMessage;
+import com.maram.myexample.View.Pojo.PojoClosingDays;
+import com.maram.myexample.View.Pojo.PojoWorkingDays;
 import com.maram.myexample.View.Utils.MyConstant;
 import com.maram.myexample.View.customView.CommonDialogFragment;
 import com.maram.myexample.View.customView.CommonDialogWithList;
@@ -62,6 +65,11 @@ public class PopupTypeFragment extends Fragment implements IPopupItemClickedFrom
     TextView textViewCommonPopupWithInput;
 
     /**
+     * Common popup with check box
+     */
+    TextView textViewCommonPopupWithCheckbox;
+
+    /**
      * fragment layout view
      */
     View viewFragment;
@@ -80,6 +88,30 @@ public class PopupTypeFragment extends Fragment implements IPopupItemClickedFrom
      * Selected value from list
      */
     TextView textViewSelectedValueFromList;
+
+    String valueSplited = "";
+
+    /**
+     * This is closing days list
+     */
+    ArrayList<PojoClosingDays> closingDaysArrayList = new ArrayList<>();
+
+    /**
+     * working day arraylist
+     */
+    ArrayList<PojoWorkingDays> workingDaysArrayList = new ArrayList<>();
+
+    int dialogUpdate = 1;
+
+    TimePicker timePickerForWorkDays;
+
+    String timeClick;
+
+    StringBuilder strClose = new StringBuilder();
+
+    String openTimeText = "";
+
+    String closeTimeText = "";
 
     @Override
     public void onAttach(Activity activity) {
@@ -112,6 +144,7 @@ public class PopupTypeFragment extends Fragment implements IPopupItemClickedFrom
         textViewCommonPopup = (TextView)viewFragment.findViewById(R.id.tv_third_popup);
         textViewCommonPopupWithList = (TextView)viewFragment.findViewById(R.id.tv_fourth_popup);
         textViewCommonPopupWithInput = (TextView)viewFragment.findViewById(R.id.tv_fifth_popup);
+        textViewCommonPopupWithCheckbox = (TextView)viewFragment.findViewById(R.id.tv_sixth_popup);
         textViewSelectedValueFromList = (TextView)viewFragment.findViewById(R.id.tv_result);
 
         setOnClickEvent();
@@ -126,6 +159,7 @@ public class PopupTypeFragment extends Fragment implements IPopupItemClickedFrom
         textViewCommonPopup.setOnClickListener(this);
         textViewCommonPopupWithList.setOnClickListener(this);
         textViewCommonPopupWithInput.setOnClickListener(this);
+        textViewCommonPopupWithCheckbox.setOnClickListener(this);
     }
 
     @Override
@@ -145,6 +179,8 @@ public class PopupTypeFragment extends Fragment implements IPopupItemClickedFrom
                 break;
             case R.id.tv_fifth_popup:
                 callCustomCommonDialogWithInputField();
+                break;
+            case R.id.tv_sixth_popup:
                 break;
             default:
                 break;
@@ -341,10 +377,5 @@ public class PopupTypeFragment extends Fragment implements IPopupItemClickedFrom
         else{
             textViewSelectedValueFromList.setText("SELECTED: "+value);
         }
-    }
-
-    @Override
-    public void dateSelected() {
-
     }
 }
