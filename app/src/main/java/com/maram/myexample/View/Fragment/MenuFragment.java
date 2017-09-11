@@ -4,17 +4,15 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Animation;
 import android.widget.TextView;
 
 import com.maram.myexample.Presenter.IMainCommunicator;
 import com.maram.myexample.R;
 import com.maram.myexample.View.Utils.MyConstant;
-import com.maram.myexample.View.Utils.AnimationUtils.FadeUpAnimation;
 
 /**
  * Created by Marimuthu on 8/21/17.
@@ -45,12 +43,14 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     /**
      * which is used to access the activity methods
      */
-    IMainCommunicator IMainCommunicator;
+    IMainCommunicator iMainCommunicator;
+
+    public static String TAG = MenuFragment.class.getSimpleName();
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        IMainCommunicator = (IMainCommunicator)activity ;
+        iMainCommunicator = (IMainCommunicator)activity ;
     }
 
     @Nullable
@@ -83,24 +83,22 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         textView_first.setOnClickListener(this);
         textView_second.setOnClickListener(this);
         textView_third.setOnClickListener(this);
+        Log.d(TAG, "setOnClickListener: ");
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_first_option:
-                IMainCommunicator.openNextScreen(MyConstant.NavigateScreen.INPUT_FIELD_KEY);
+                iMainCommunicator.openNextScreen(MyConstant.NavigateScreen.INPUT_FIELD_KEY);
                 break;
             case R.id.tv_second_option:
-                IMainCommunicator.openNextScreen(MyConstant.NavigateScreen.POPUP_TYPE_KEY);
-                viewFragment.findViewById(R.id.cardview_first).setVisibility(View.VISIBLE);
+                iMainCommunicator.openNextScreen(MyConstant.NavigateScreen.POPUP_TYPE_KEY);
+                //viewFragment.findViewById(R.id.cardview_first).setVisibility(View.VISIBLE);
                 break;
             case R.id.tv_third_option:
-                Animation a = new FadeUpAnimation(viewFragment.findViewById(R.id.cardview_first));
-                a.setInterpolator(new AccelerateInterpolator());
-                a.setDuration(300);
-                viewFragment.findViewById(R.id.cardview_first).setAnimation(a);
-                viewFragment.findViewById(R.id.cardview_first).startAnimation(a);
+                iMainCommunicator.openNextScreen(MyConstant.NavigateScreen.TOAST_TYPE_KEY);
+                //viewFragment.findViewById(R.id.cardview_first).setVisibility(View.VISIBLE);
                 break;
             default:
                 break;

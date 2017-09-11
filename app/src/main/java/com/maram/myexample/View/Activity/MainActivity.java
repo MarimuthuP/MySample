@@ -27,6 +27,7 @@ import com.maram.myexample.R;
 import com.maram.myexample.View.Fragment.InputFieldListFragment;
 import com.maram.myexample.View.Fragment.MenuFragment;
 import com.maram.myexample.View.Fragment.PopupTypeFragment;
+import com.maram.myexample.View.Fragment.ToastTypeFragment;
 import com.maram.myexample.View.Pojo.PojoClosingDays;
 import com.maram.myexample.View.Pojo.PojoWorkingDays;
 import com.maram.myexample.View.Utils.MyConstant;
@@ -166,6 +167,17 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
                     .addToBackStack("MENU_LIST_OPTION")
                     .commitAllowingStateLoss();
         }
+
+        if(keyValue == MyConstant.NavigateScreen.TOAST_TYPE_KEY){
+            fragmentObj = new ToastTypeFragment();
+            Bundle bundle = new Bundle();
+            fragmentObj.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.enter_from_right,R.anim.exit_to_left,R.anim.enter_from_left,R.anim.exit_to_right)
+                    .add(mainFrame.getId(),fragmentObj,"POPUP_TYPE_KEY")
+                    .addToBackStack("MENU_LIST_OPTION")
+                    .commitAllowingStateLoss();
+        }
     }
 
     @Override
@@ -183,6 +195,10 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
             }
 
             if(fragment instanceof PopupTypeFragment){
+                getSupportFragmentManager().popBackStackImmediate();
+                tvToolBarTitle.setText(getResources().getString(R.string.title_menu));
+            }
+            if(fragment instanceof ToastTypeFragment){
                 getSupportFragmentManager().popBackStackImmediate();
                 tvToolBarTitle.setText(getResources().getString(R.string.title_menu));
             }

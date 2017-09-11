@@ -89,30 +89,6 @@ public class PopupTypeFragment extends Fragment implements IPopupItemClickedFrom
      */
     TextView textViewSelectedValueFromList;
 
-    String valueSplited = "";
-
-    /**
-     * This is closing days list
-     */
-    ArrayList<PojoClosingDays> closingDaysArrayList = new ArrayList<>();
-
-    /**
-     * working day arraylist
-     */
-    ArrayList<PojoWorkingDays> workingDaysArrayList = new ArrayList<>();
-
-    int dialogUpdate = 1;
-
-    TimePicker timePickerForWorkDays;
-
-    String timeClick;
-
-    StringBuilder strClose = new StringBuilder();
-
-    String openTimeText = "";
-
-    String closeTimeText = "";
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
