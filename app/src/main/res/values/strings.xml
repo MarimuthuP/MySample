@@ -42,5 +42,7 @@
     <string name="simple_custom_toast">Simple Custom Toast</string>
     <string name="custom_design_toast">Customized Toast</string>
     <string name="time_toast">Custom Duration Toast</string>
+    <string name="business_account">Merchant</string>
+    <string name="personal_account">Personal</string>
 
 </resources>

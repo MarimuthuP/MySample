@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/appBackcolor"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/appBackcolor"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_margin="@dimen/margin_15"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_15"
+        android:orientation="vertical">
 
         <!-- simple toast -->
         <android.support.v7.widget.CardView
@@ -22,27 +22,26 @@
             app:cardElevation="@dimen/margin_5">
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_help"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/margin_10"
-                />
-
-            <TextView
-                android:id="@+id/textview_simple_toast"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ripple"
-                android:clickable="true"
-                android:padding="@dimen/margin_15"
-                android:text="@string/simple_custom_toast"
-                android:textSize="@dimen/font_16" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:src="@drawable/ic_help" />
+
+                <TextView
+                    android:id="@+id/textview_simple_toast"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ripple"
+                    android:clickable="true"
+                    android:padding="@dimen/margin_15"
+                    android:text="@string/simple_custom_toast"
+                    android:textSize="@dimen/font_16" />
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
@@ -52,33 +51,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_15"
-            app:cardCornerRadius="@dimen/margin_2"
             android:background="@drawable/ripple"
             android:clickable="true"
+            app:cardCornerRadius="@dimen/margin_2"
             app:cardElevation="@dimen/margin_5">
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_answer"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/margin_10"
-                />
-            <TextView
-                android:id="@+id/textview_custom_toast"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/margin_15"
-                android:background="@drawable/ripple"
-                android:clickable="true"
-                android:text="@string/custom_design_toast"
-                android:textSize="@dimen/font_16" />
-</LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:src="@drawable/ic_answer" />
+
+                <TextView
+                    android:id="@+id/textview_custom_toast"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ripple"
+                    android:clickable="true"
+                    android:padding="@dimen/margin_15"
+                    android:text="@string/custom_design_toast"
+                    android:textSize="@dimen/font_16" />
+            </LinearLayout>
         </android.support.v7.widget.CardView>
 
         <!-- time popup -->
@@ -86,33 +85,62 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_15"
-            app:cardCornerRadius="@dimen/margin_2"
             android:background="@drawable/ripple"
             android:clickable="true"
+            app:cardCornerRadius="@dimen/margin_2"
             app:cardElevation="@dimen/margin_5">
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_opening_hour"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/margin_10"
-                />
-            <TextView
-                android:id="@+id/textview_timer_toast"
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:src="@drawable/ic_opening_hour" />
+
+                <TextView
+                    android:id="@+id/textview_timer_toast"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ripple"
+                    android:clickable="true"
+                    android:padding="@dimen/margin_15"
+                    android:text="@string/time_toast"
+                    android:textSize="@dimen/font_16" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <!--drop down-->
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15"
+            android:background="@drawable/ripple"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/margin_2"
+            app:cardElevation="@dimen/margin_5">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_15"
-                android:background="@drawable/ripple"
-                android:clickable="true"
-                android:text="@string/time_toast"
-                android:textSize="@dimen/font_16" />
-</LinearLayout>
+                android:orientation="horizontal"
+                >
+
+                <Spinner
+                    android:id="@+id/spinner_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:spinnerMode="dropdown">
+
+                </Spinner>
+
+            </LinearLayout>
+
         </android.support.v7.widget.CardView>
 
     </LinearLayout>

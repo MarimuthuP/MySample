@@ -1,43 +1,27 @@
 package com.maram.myexample.View.Fragment;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.Transformation;
-import android.widget.LinearLayout;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.maram.myexample.Presenter.IMainCommunicator;
-import com.maram.myexample.Presenter.IPopupItemClickedFromList;
 import com.maram.myexample.R;
-import com.maram.myexample.View.Activity.MainActivity;
-import com.maram.myexample.View.Pojo.PojoAlertMessage;
-import com.maram.myexample.View.Pojo.PojoClosingDays;
-import com.maram.myexample.View.Pojo.PojoWorkingDays;
-import com.maram.myexample.View.Utils.MyConstant;
-import com.maram.myexample.View.customView.CommonDialogFragment;
-import com.maram.myexample.View.customView.CommonDialogWithList;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.maram.myexample.View.Adapter.CustomSpinnerAdapter;
 
 /**
  * Created by Marimuthu on 8/23/17.
  */
 
-public class ToastTypeFragment extends Fragment implements View.OnClickListener{
+public class ToastTypeFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     /**
      * simple default toast
@@ -63,6 +47,16 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener{
      * Interface obj
      */
     IMainCommunicator iMainCommunicator;
+
+    String accountTypes[];
+
+    int[] accountIcons = {R.drawable.ic_merchant, R.drawable.ic_personal};
+
+    CustomSpinnerAdapter customSpinnerAdapter;
+
+    Spinner accountSpinner;
+
+    String typeStr;
 
     @Override
     public void onAttach(Activity activity) {
@@ -92,7 +86,20 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener{
         textViewSimpleToast = (TextView)viewFragment.findViewById(R.id.textview_simple_toast);
         textViewCustomToast = (TextView)viewFragment.findViewById(R.id.textview_custom_toast);
         textViewTimerToast = (TextView)viewFragment.findViewById(R.id.textview_timer_toast);
+        accountSpinner = (Spinner)viewFragment.findViewById(R.id.spinner_account);
+        accountTypes =  new String[]{
+                getResources().getString(R.string.business_account),
+                getResources().getString(R.string.personal_account)
+        };
+        setSpinnerAdapter();
         setOnClickEvent();
+
+    }
+
+    private void setSpinnerAdapter() {
+        customSpinnerAdapter = new CustomSpinnerAdapter(getActivity(),accountTypes,accountIcons);
+        accountSpinner.setAdapter(customSpinnerAdapter);
+        accountSpinner.setSelection(0);
     }
 
     /**
@@ -102,6 +109,8 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener{
         textViewSimpleToast.setOnClickListener(this);
         textViewCustomToast.setOnClickListener(this);
         textViewTimerToast.setOnClickListener(this);
+        accountSpinner.setOnItemSelectedListener(this);
+
     }
 
     @Override
@@ -115,6 +124,8 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.textview_timer_toast:
                 callCustomToastWithDuration();
+                accountSpinner.setSelection(0);
+                accountSpinner.setEnabled(false);
                 break;
             default:
                 break;
@@ -168,4 +179,19 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener{
         toast.show();
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+        String accountType = accountTypes[position];
+
+        if(accountType.equals(accountTypes[position])){
+            Toast.makeText(getActivity(), "Clicked My Business - "+accountType, Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(getActivity(), "Clicked Me - "+accountType, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+    }
 }
