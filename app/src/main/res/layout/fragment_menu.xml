@@ -89,5 +89,57 @@
 
         </android.support.v7.widget.CardView>
 
+        <!-- Fourth option -->
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview_four"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/ripple"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/margin_2"
+            app:cardElevation="@dimen/margin_5">
+
+            <TextView
+                android:id="@+id/tv_four_option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple"
+                android:clickable="true"
+                android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                android:padding="@dimen/margin_15"
+                android:text="@string/custom_searchview_type"
+                android:textSize="@dimen/font_16" />
+
+
+        </android.support.v7.widget.CardView>
+
+        <!-- Fourth option -->
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview_five"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/ripple"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/margin_2"
+            app:cardElevation="@dimen/margin_5">
+
+            <TextView
+                android:id="@+id/tv_five_option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple"
+                android:clickable="true"
+                android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                android:padding="@dimen/margin_15"
+                android:text="@string/custom_webview_type"
+                android:textSize="@dimen/font_16" />
+
+
+        </android.support.v7.widget.CardView>
+
     </LinearLayout>
 </LinearLayout>

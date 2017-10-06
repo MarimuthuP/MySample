@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:id="@+id/main_menu_home"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_home"
+            android:icon="@mipmap/ic_home"
+            android:orderInCategory="1"
+            android:title="Home"
+            app:showAsAction="collapseActionView" />
+    </group>
+
+    <group
+        android:id="@+id/main_menu_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_snackbar"
+            android:icon="@mipmap/ic_viewlistnew"
+            android:orderInCategory="2"
+            android:title="SnackBar"
+            app:showAsAction="ifRoom" />
+
+        <item
+            android:id="@+id/menu_toggle"
+            android:icon="@drawable/ic_camera_icon"
+            android:iconTint="@color/colorAccent"
+            android:orderInCategory="3"
+            android:title="Toggle Button"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/menu_radio_button"
+            android:icon="@drawable/ic_camera_icon"
+            android:orderInCategory="4"
+            android:title="Radio Button"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/menu_checkbox"
+            android:icon="@drawable/ic_camera_icon"
+            android:orderInCategory="5"
+            android:title="Check Box"
+            app:showAsAction="never" />
+    </group>
+
+    <item
+        android:orderInCategory="6"
+        android:title="UI Controls">
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:icon="@drawable/ic_answer"
+                    android:title="Sub item 1" />
+                <item
+                    android:icon="@drawable/ic_opening_hour"
+                    android:title="Sub item 2" />
+            </group>
+        </menu>
+    </item>
+
+</menu>

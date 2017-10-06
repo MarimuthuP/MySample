@@ -32,8 +32,9 @@
         android:id="@+id/navigationview_menu"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="end"
-        app:menu="@menu/menu_main">
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/drawer_view_menu">
 
     </android.support.design.widget.NavigationView>
 

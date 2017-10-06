@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:id="@+id/relativelayout_main"
     android:layout_height="match_parent"
     android:background="@color/appBackcolor"
     android:orientation="vertical">
@@ -114,6 +115,40 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
+        <!-- time popup -->
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15"
+            android:background="@drawable/ripple"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/margin_2"
+            app:cardElevation="@dimen/margin_5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:src="@drawable/ic_personal" />
+
+                <TextView
+                    android:id="@+id/textview_animate_toast"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ripple"
+                    android:clickable="true"
+                    android:padding="@dimen/margin_15"
+                    android:text="@string/animate_toast"
+                    android:textSize="@dimen/font_16" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
         <!--drop down-->
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -127,8 +162,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <Spinner
                     android:id="@+id/spinner_account"
@@ -139,6 +173,81 @@
 
                 </Spinner>
 
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <!--drop down-->
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15"
+            android:background="@drawable/ripple"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/margin_2"
+            app:cardElevation="@dimen/margin_5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/yellowColor"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/textview_popup_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/yellowColor"
+                    android:clickable="true"
+                    android:padding="@dimen/margin_15"
+                    android:text="@string/change_flag"
+                    android:textSize="@dimen/font_16" />
+
+                <LinearLayout
+                    android:id="@+id/ll_dropdown_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/margin_5"
+                    android:paddingLeft="@dimen/margin_7"
+                    android:layout_marginRight="@dimen/margin_2"
+                    android:paddingRight="@dimen/margin_7"
+                    android:paddingTop="@dimen/margin_5">
+
+                    <Spinner
+                        android:id="@+id/spinner_language"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/flag_background_image"
+                        android:spinnerMode="dropdown">
+
+                    </Spinner>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_popup_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/margin_5"
+                    android:paddingLeft="@dimen/margin_7"
+                    android:layout_marginRight="@dimen/margin_2"
+                    android:background="@drawable/language_border"
+                    android:paddingRight="@dimen/margin_7"
+                    android:paddingTop="@dimen/margin_5">
+
+                    <ImageView
+                        android:id="@+id/imageview_change_language"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/flag_myanma" />
+                </LinearLayout>
             </LinearLayout>
 
         </android.support.v7.widget.CardView>

@@ -4,6 +4,8 @@
     <string name="input_fields">Input Fields</string>
     <string name="popup_type">Types of Popup</string>
     <string name="custom_toast_type">Types of Toast</string>
+    <string name="custom_searchview_type">SearchView</string>
+    <string name="custom_webview_type">WebView</string>
 
     <!--popup string-->
     <string name="simple_popup">Simple Default Popup</string>
@@ -17,6 +19,11 @@
     <string name="title_popup">Popup Types</string>
     <string name="title_toast">Toast Types</string>
     <string name="title_menu">Menu Option</string>
+    <string name="title_checkbox">Material CheckBox</string>
+    <string name="title_webview">WebView</string>
+    <string name="title_radiobox">Material Radio Button</string>
+    <string name="title_toggle">Material Toggle Button</string>
+    <string name="title_simple_list">Simple List</string>
 
     <!--alert string-->
     <string name="alert_title">Alert Dialog</string>
@@ -42,7 +49,11 @@
     <string name="simple_custom_toast">Simple Custom Toast</string>
     <string name="custom_design_toast">Customized Toast</string>
     <string name="time_toast">Custom Duration Toast</string>
+    <string name="animate_toast">Custom Animation Toast</string>
+    <string name="change_flag">Change Language</string>
     <string name="business_account">Merchant</string>
     <string name="personal_account">Personal</string>
 
+    <!--search-->
+    <string name="search_hint">Search here</string>
 </resources>

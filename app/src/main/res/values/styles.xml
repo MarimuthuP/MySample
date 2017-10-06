@@ -39,4 +39,57 @@
         <item name="android:paddingBottom">5dp</item>
     </style>
 
+    <style name="GreenTheme" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/greenColor</item>
+        <item name="android:textColorSecondary">@color/redColor</item>
+    </style>
+
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <!-- Gets rid of the search icon -->
+        <item name="searchIcon">@mipmap/ic_search</item>
+        <!-- Gets rid of the "underline" in the text -->
+        <item name="queryBackground">@null</item>
+        <!-- Gets rid of the search icon when the SearchView is expanded -->
+        <item name="searchHintIcon">@null</item>
+        <!-- The hint text that appears when the user has not typed anything -->
+        <item name="queryHint">@string/search_hint</item>
+    </style>
+
+    <!-- Green Dialog Theme -->
+    <style name="AppTheme.Dialog.Green" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/redColor</item>
+        <item name="colorPrimaryDark">@color/redColor</item>
+        <item name="colorAccent">@color/redColor</item>
+    </style>
+
+    <!-- Green Alert Dialog Theme -->
+    <style name="AppThemeDialogAlertGreen" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/greenColor</item>
+        <item name="android:textColor">@color/redColor</item>
+    </style>
+
+    <!-- Yellow Theme -->
+    <style name="YellowCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/yellowColor</item>
+    </style>
+
+    <!-- Green Theme -->
+    <style name="GreenCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/yellowColor</item>
+        <item name="colorControlActivated">@color/greenColor</item>
+    </style>
+
+    <!-- Pink Theme -->
+    <style name="PinkCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/greenColor</item>
+        <item name="colorControlActivated">@color/pinkColor</item>
+    </style>
+
+    <!-- Blue Theme -->
+    <style name="BlueCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/pinkColor</item>
+        <item name="colorControlActivated">@color/blueColor</item>
+    </style>
+
 </resources>

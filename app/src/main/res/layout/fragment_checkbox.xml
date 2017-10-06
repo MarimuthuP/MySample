@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appBackcolor"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_15"
+        android:orientation="vertical">
+
+        <!-- simple toast -->
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple"
+            android:clickable="true"
+            app:cardCornerRadius="@dimen/margin_2"
+            app:cardElevation="@dimen/margin_5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_5"
+                android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/checkbox_first"
+                android:layout_width="match_parent"
+                android:text="Green Check Box"
+                android:padding="@dimen/margin_5"
+                android:theme="@style/GreenCheckBox"
+                android:layout_marginTop="@dimen/margin_15"
+                android:layout_marginBottom="@dimen/margin_5"
+                android:layout_height="wrap_content" />
+
+            <CheckBox
+                android:id="@+id/checkbox_second"
+                android:layout_width="match_parent"
+                android:text="Yellow Check Box"
+                android:padding="@dimen/margin_5"
+                android:theme="@style/YellowCheckBox"
+                android:layout_marginTop="@dimen/margin_15"
+                android:layout_marginBottom="@dimen/margin_5"
+                android:layout_height="wrap_content" />
+
+            <CheckBox
+                android:id="@+id/checkbox_third"
+                android:layout_width="match_parent"
+                android:text="Blue Check Box"
+                android:padding="@dimen/margin_5"
+                android:theme="@style/BlueCheckBox"
+                android:layout_marginTop="@dimen/margin_15"
+                android:layout_marginBottom="@dimen/margin_5"
+                android:layout_height="wrap_content" />
+
+            <CheckBox
+                android:id="@+id/checkbox_fourth"
+                android:layout_width="match_parent"
+                android:text="Pink Check Box"
+                android:theme="@style/PinkCheckBox"
+                android:padding="@dimen/margin_5"
+                android:layout_marginTop="@dimen/margin_15"
+                android:layout_marginBottom="@dimen/margin_5"
+                android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</RelativeLayout>
