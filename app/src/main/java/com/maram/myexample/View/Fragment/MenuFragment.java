@@ -41,6 +41,16 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     TextView textView_third;
 
     /**
+     * Four menu option textview
+     */
+    TextView textView_four;
+
+    /**
+     * Four menu option textview
+     */
+    TextView textView_five;
+
+    /**
      * which is used to access the activity methods
      */
     IMainCommunicator iMainCommunicator;
@@ -73,6 +83,8 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         textView_first = (TextView) viewFragment.findViewById(R.id.tv_first_option);
         textView_second = (TextView) viewFragment.findViewById(R.id.tv_second_option);
         textView_third = (TextView) viewFragment.findViewById(R.id.tv_third_option);
+        textView_four = (TextView) viewFragment.findViewById(R.id.tv_four_option);
+        textView_five = (TextView) viewFragment.findViewById(R.id.tv_five_option);
         setOnClickListener();
     }
 
@@ -83,6 +95,8 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         textView_first.setOnClickListener(this);
         textView_second.setOnClickListener(this);
         textView_third.setOnClickListener(this);
+        textView_four.setOnClickListener(this);
+        textView_five.setOnClickListener(this);
         Log.d(TAG, "setOnClickListener: ");
     }
 
@@ -98,6 +112,14 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.tv_third_option:
                 iMainCommunicator.openNextScreen(MyConstant.NavigateScreen.TOAST_TYPE_KEY);
+                //viewFragment.findViewById(R.id.cardview_first).setVisibility(View.VISIBLE);
+                break;
+            case R.id.tv_four_option:
+                iMainCommunicator.openNextScreen(MyConstant.NavigateScreen.SEARCHVIEW_TYPE_KEY);
+                //viewFragment.findViewById(R.id.cardview_first).setVisibility(View.VISIBLE);
+                break;
+            case R.id.tv_five_option:
+                iMainCommunicator.openNextScreen(MyConstant.NavigateScreen.WEBVIEW_TYPE_KEY);
                 //viewFragment.findViewById(R.id.cardview_first).setVisibility(View.VISIBLE);
                 break;
             default:

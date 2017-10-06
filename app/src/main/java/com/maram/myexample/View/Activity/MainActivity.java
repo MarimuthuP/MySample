@@ -1,21 +1,23 @@
 package com.maram.myexample.View.Activity;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.maram.myexample.Presenter.IMainCommunicator;
@@ -24,20 +26,18 @@ import com.maram.myexample.Presenter.IPopupCommunicatorFromList;
 import com.maram.myexample.Presenter.IPopupItemClickedFromList;
 import com.maram.myexample.Presenter.IReceiveAmount;
 import com.maram.myexample.R;
+import com.maram.myexample.View.Fragment.CheckBoxTypeFragment;
 import com.maram.myexample.View.Fragment.InputFieldListFragment;
 import com.maram.myexample.View.Fragment.MenuFragment;
 import com.maram.myexample.View.Fragment.PopupTypeFragment;
+import com.maram.myexample.View.Fragment.RadioButtonTypeFragment;
+import com.maram.myexample.View.Fragment.SimpleRecyclerView;
 import com.maram.myexample.View.Fragment.ToastTypeFragment;
-import com.maram.myexample.View.Pojo.PojoClosingDays;
-import com.maram.myexample.View.Pojo.PojoWorkingDays;
+import com.maram.myexample.View.Fragment.ToggleButtonTypeFragment;
+import com.maram.myexample.View.Fragment.WebViewFragment;
 import com.maram.myexample.View.Utils.MyConstant;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-
-public class MainActivity extends AppCompatActivity implements IEnteredAmountValidation, IMainCommunicator, IPopupCommunicatorFromList {
+public class MainActivity extends AppCompatActivity implements IEnteredAmountValidation, IMainCommunicator, IPopupCommunicatorFromList, SearchView.OnQueryTextListener {
 
     /**
      * This is the framelayout variable to get the details.
@@ -64,16 +64,81 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
      */
     DrawerLayout drawerLayoutLeftMenu;
 
+    NavigationView navigationViewDrawer;
+
     public IPopupItemClickedFromList iPopupItemClickedFromList;
+
+    ImageView ivHeaderPhoto;
+
+    Menu menu;
+
+    MenuItem searchMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initActivity();
         setupToolBar();
         AttachFragment(savedInstanceState);
+        setupDrawerContent(navigationViewDrawer);
+        //showOverflowMenu(true);
     }
+
+    private void setupDrawerContent(NavigationView navigationViewDrawer) {
+        navigationViewDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                selectDrawerItem(item);
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    private void selectDrawerItem(MenuItem item) {
+        Fragment fragment = null;
+        Class fragmentClass;
+        switch (item.getItemId()){
+            case R.id.menu_home:
+                fragmentClass = MenuFragment.class;
+                break;
+            case R.id.menu_checkbox:
+                fragmentClass = CheckBoxTypeFragment.class;
+                break;
+            case R.id.menu_radio_button:
+                fragmentClass = RadioButtonTypeFragment.class;
+                break;
+            case R.id.menu_toggle:
+                fragmentClass = ToggleButtonTypeFragment.class;
+                break;
+            case R.id.menu_snackbar:
+                fragmentClass = ToastTypeFragment.class;
+                break;
+            default:
+                fragmentClass = InputFieldListFragment.class;
+        }
+
+        try {
+            fragment = (Fragment)fragmentClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.main_container,fragment).commit();
+        item.setChecked(true);
+        setTitle(item.getTitle());
+        drawerLayoutLeftMenu.closeDrawers();
+    }
+
 
     /**
      *  This method used to set the toolbar
@@ -89,29 +154,31 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
         toolBarTop.setLogoDescription("LOGO");                                      // set description for the logo
 
         // Back button going to hide.. will make it like menu
-        toolBarTop.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_back)); // set icon for navigation button
+        //toolBarTop.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_back)); // set icon for navigation button
+
         //toolBarTop.setSubtitle("Click here");                                       // set subtitle for toolbar
-        toolBarTop.setNavigationContentDescription("Navigation content");           // set the navigation content string.
+
+        //toolBarTop.setNavigationContentDescription("Navigation content");           // set the navigation content string.
         //tvToolBarTitle.setTextColor(getResources().getColor(R.color.colorAccent));  // set text color for Toolbar title. subtitle color also can change.
 
 
-        toolBarTop.setNavigationOnClickListener(new View.OnClickListener() {
+        /*toolBarTop.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
-        });
+        });*/
 
         /**
          * Navigation Menu
          */
-        /*toolBarTop.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_navimenu));
+        toolBarTop.setNavigationIcon(getResources().getDrawable(R.mipmap.ic_navimenu));
         toolBarTop.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawerLayoutLeftMenu.openDrawer(Gravity.LEFT);
+                drawerLayoutLeftMenu.openDrawer(Gravity.START);
             }
-        });*/
+        });
     }
 
     /**
@@ -136,6 +203,25 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
         toolBarTop = (Toolbar)findViewById(R.id.toolbar_layout);
         tvToolBarTitle = (TextView)findViewById(R.id.toolbar_title);
         drawerLayoutLeftMenu = (DrawerLayout)findViewById(R.id.newdrawerlayout);
+        navigationViewDrawer = (NavigationView)findViewById(R.id.navigationview_menu);
+
+
+        //View headerLayout = navigationViewDrawer.inflateHeaderView(R.layout.navigation_header); // Inflate the header view at runtime
+        //ivHeaderPhoto = headerLayout.findViewById(R.id.profile_image_view); // We can now look up items within the header if needed
+
+        // There is usually only 1 header view.
+        // Multiple header views can technically be added at runtime.
+        // We can use navigationView.getHeaderCount() to determine the total number.
+        View headerLayout = navigationViewDrawer.getHeaderView(0);
+        ivHeaderPhoto = headerLayout.findViewById(R.id.profile_image_view);
+        ivHeaderPhoto.setBackgroundDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
+        ivHeaderPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ivHeaderPhoto.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_help));
+                Toast.makeText(MainActivity.this, "Clicked photo", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -148,6 +234,7 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
         Fragment fragmentObj;
 
         if(keyValue == MyConstant.NavigateScreen.INPUT_FIELD_KEY){
+            showOverflowMenu(true);
             fragmentObj = new InputFieldListFragment();
             Bundle bundle = new Bundle();
             fragmentObj.setArguments(bundle);
@@ -158,6 +245,7 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
                     .commitAllowingStateLoss();
         }
         if(keyValue == MyConstant.NavigateScreen.POPUP_TYPE_KEY){
+            showOverflowMenu(true);
             fragmentObj = new PopupTypeFragment();
             Bundle bundle = new Bundle();
             fragmentObj.setArguments(bundle);
@@ -169,6 +257,7 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
         }
 
         if(keyValue == MyConstant.NavigateScreen.TOAST_TYPE_KEY){
+            showOverflowMenu(true);
             fragmentObj = new ToastTypeFragment();
             Bundle bundle = new Bundle();
             fragmentObj.setArguments(bundle);
@@ -178,6 +267,37 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
                     .addToBackStack("MENU_LIST_OPTION")
                     .commitAllowingStateLoss();
         }
+        if(keyValue == MyConstant.NavigateScreen.SEARCHVIEW_TYPE_KEY){
+
+            showOverflowMenu(false);
+            fragmentObj = new SimpleRecyclerView();
+            Bundle bundle = new Bundle();
+            fragmentObj.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.enter_from_right,R.anim.exit_to_left,R.anim.enter_from_left,R.anim.exit_to_right)
+                    .add(mainFrame.getId(),fragmentObj,"POPUP_TYPE_KEY")
+                    .addToBackStack("MENU_LIST_OPTION")
+                    .commitAllowingStateLoss();
+        }
+        if(keyValue == MyConstant.NavigateScreen.WEBVIEW_TYPE_KEY){
+
+            showOverflowMenu(false);
+            fragmentObj = new WebViewFragment();
+            Bundle bundle = new Bundle();
+            fragmentObj.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.enter_from_right,R.anim.exit_to_left,R.anim.enter_from_left,R.anim.exit_to_right)
+                    .add(mainFrame.getId(),fragmentObj,"POPUP_TYPE_KEY")
+                    .addToBackStack("MENU_LIST_OPTION")
+                    .commitAllowingStateLoss();
+        }
+    }
+
+    private void showOverflowMenu(boolean b) {
+        if(menu == null)
+            return;
+        menu.setGroupVisible(R.id.main_menu_group, b);
+        menu.setGroupVisible(R.id.search_group, b?false:true);
     }
 
     @Override
@@ -192,15 +312,28 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
             if(fragment instanceof InputFieldListFragment){
                 getSupportFragmentManager().popBackStackImmediate();
                 tvToolBarTitle.setText(getResources().getString(R.string.title_menu));
+                showOverflowMenu(true);
             }
 
             if(fragment instanceof PopupTypeFragment){
                 getSupportFragmentManager().popBackStackImmediate();
                 tvToolBarTitle.setText(getResources().getString(R.string.title_menu));
+                showOverflowMenu(true);
             }
             if(fragment instanceof ToastTypeFragment){
                 getSupportFragmentManager().popBackStackImmediate();
                 tvToolBarTitle.setText(getResources().getString(R.string.title_menu));
+                showOverflowMenu(true);
+            }
+            if(fragment instanceof SimpleRecyclerView){
+                getSupportFragmentManager().popBackStackImmediate();
+                tvToolBarTitle.setText(getResources().getString(R.string.title_menu));
+                showOverflowMenu(true);
+            }
+            if(fragment instanceof WebViewFragment){
+                getSupportFragmentManager().popBackStackImmediate();
+                tvToolBarTitle.setText(getResources().getString(R.string.title_menu));
+                showOverflowMenu(true);
             }
         }
         else{
@@ -210,7 +343,15 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.menu_main,menu);
+        searchMenuItem = menu.findItem(R.id.action_search);
+        searchMenuItem.setVisible(false);
+
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+
+        searchView.setOnQueryTextListener(this);
+
         return true;
     }
 
@@ -218,19 +359,8 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id){
-            case R.id.action_viewlist:
-                drawerLayoutLeftMenu.openDrawer(Gravity.RIGHT);
-                break;
-            case R.id.action_new:
-                Toast.makeText(this, "New Option Clicked", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.action_refresh:
-                Toast.makeText(this, "Refresh Option Clicked", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.action_settings:
-                Toast.makeText(this, "Settings Option Clicked", Toast.LENGTH_SHORT).show();
-                break;
-            default:
+            case android.R.id.home:
+                drawerLayoutLeftMenu.openDrawer(Gravity.START);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -239,5 +369,15 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
     @Override
     public void callToDismissDialog(String valueText, int keyValue) {
         iPopupItemClickedFromList.popupItemClicked(valueText,keyValue);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 }

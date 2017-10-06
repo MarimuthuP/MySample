@@ -8,12 +8,14 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -30,8 +32,13 @@ import com.maram.myexample.View.Utils.MyConstant;
 import com.maram.myexample.View.customView.CommonDialogFragment;
 import com.maram.myexample.View.customView.CommonDialogWithList;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Locale;
+
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 /**
  * Created by Marimuthu on 8/23/17.
@@ -157,6 +164,7 @@ public class PopupTypeFragment extends Fragment implements IPopupItemClickedFrom
                 callCustomCommonDialogWithInputField();
                 break;
             case R.id.tv_sixth_popup:
+                showDatePicker();
                 break;
             default:
                 break;
@@ -217,7 +225,8 @@ public class PopupTypeFragment extends Fragment implements IPopupItemClickedFrom
      *  This is used to show default alert dialog
      */
     private void callDefaultAlertDialog() {
-        AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT).create();
+        //AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(),R.style.AppThemeDialogAlertGreen)).create();
         alertDialog.setTitle(getResources().getString(R.string.alert_title));
         alertDialog.setMessage(getResources().getString(R.string.alert_message));
         alertDialog.setIcon(R.mipmap.ic_launcher);
@@ -236,10 +245,12 @@ public class PopupTypeFragment extends Fragment implements IPopupItemClickedFrom
      * This method is used to show alert with two button action
      */
     public void callDefaultAlertDialogWithTwoButtons(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        //AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(),R.style.AppThemeDialogAlertGreen));
         builder.setTitle(getResources().getString(R.string.alert_title));
         builder.setMessage(getResources().getString(R.string.alert_message));
         builder.setCancelable(true);
+
         builder.setPositiveButton(getResources().getString(R.string.ok_text), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -353,5 +364,84 @@ public class PopupTypeFragment extends Fragment implements IPopupItemClickedFrom
         else{
             textViewSelectedValueFromList.setText("SELECTED: "+value);
         }
+    }
+
+
+    private void showDatePicker() {
+        Calendar calendar = Calendar.getInstance();
+        int year1, month1, day1;
+
+        final AlertDialog.Builder mDateTimeDialog = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(),R.style.AppThemeDialogAlertGreen));
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View view = inflater.inflate(R.layout.custom_date_picker, null);
+        final DatePicker datePickerView = (DatePicker) view.findViewById(R.id.datePickerView);
+        datePickerView.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
+        //String datenow = mDateOfBirth.getText().toString();
+
+        /*if (datenow.length() > 0) {
+            String[] selectedDate_array = datenow.split("-");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+            year1 = Integer.valueOf(selectedDate_array[2]);
+            month1 = getSelectedMonth(selectedDate_array[1]);
+            day1 = Integer.valueOf(selectedDate_array[0]);
+            calendar.set(Calendar.YEAR, year1);
+            calendar.set(Calendar.MONTH, month1);
+            calendar.set(Calendar.DAY_OF_MONTH, day1);
+        } else
+            */
+        {
+            calendar.add(Calendar.YEAR, -12);
+        }
+        datePickerView.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
+        mDateTimeDialog.setView(view);
+        String set = "set"; //getResources().getString(R.string.set);
+        String cancel = "cancel";
+
+        mDateTimeDialog.setPositiveButton(set, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                view.clearFocus();
+                int day = datePickerView.getDayOfMonth();
+                int month = datePickerView.getMonth();
+                int year = datePickerView.getYear();
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month, day);
+                Calendar preCalendar = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, day);
+                preCalendar.add(Calendar.YEAR, -12);
+                /*if (calendar.getTimeInMillis() <= preCalendar.getTimeInMillis()) {
+                    mDateOfBirth.setText(sdf.format(calendar.getTime()));
+                    isAgelower18();
+                    isNameEdited = true;
+                    llTakePhoto.setVisibility(View.VISIBLE);
+                    languageReset();
+                } else {
+                    languageReset();
+                    mDateOfBirth.setHint(getResources().getString(R.string.dob_text));
+                    showCustomToast(getResources().getString(R.string.dob_error));
+                    return;
+                }*/
+            }
+        });
+        mDateTimeDialog.setNegativeButton(cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                //languageReset();
+            }
+        });
+        mDateTimeDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                //languageReset();
+            }
+        });
+        mDateTimeDialog.show();
+
     }
 }

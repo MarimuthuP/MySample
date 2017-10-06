@@ -1,6 +1,8 @@
 package com.maram.myexample.View.Fragment;
 
 import android.app.Activity;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +23,7 @@ import android.widget.Toast;
 import com.maram.myexample.Presenter.IMainCommunicator;
 import com.maram.myexample.R;
 import com.maram.myexample.View.Adapter.CustomSpinnerAdapter;
+import com.maram.myexample.View.Adapter.CustomSpinnerLanguageAdapter;
 
 /**
  * Created by Marimuthu on 8/23/17.
@@ -39,6 +47,11 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener,
     TextView textViewTimerToast;
 
     /**
+     *  timer toast
+     */
+    TextView textViewAnimateToast;
+
+    /**
      * fragment layout view
      */
     View viewFragment;
@@ -52,16 +65,38 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener,
 
     int[] accountIcons = {R.drawable.ic_merchant, R.drawable.ic_personal};
 
+    int[] flagIcons1 = {R.drawable.flag_myanma, R.drawable.flag_uk};
+    int[] flagIcons2 = {R.drawable.flag_uk, R.drawable.flag_myanma};
+
     CustomSpinnerAdapter customSpinnerAdapter;
+
+    CustomSpinnerLanguageAdapter customSpinnerLanguageAdapter;
 
     Spinner accountSpinner;
 
+    Spinner languageSpinner;
+
     String typeStr;
+
+    LinearLayout linearLayoutChangeLanguage;
+
+    private PopupWindow mPopupWindow;
+
+    RelativeLayout relativeLayoutPopup;
+
+    Context mContext;
+
+    ImageView imageViewPopupCloseButton;
+
+    int keyCode = 0;
+
+    int currentPosition = 1;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         iMainCommunicator = (IMainCommunicator)activity;
+        mContext = getActivity().getApplicationContext();
     }
 
 
@@ -86,18 +121,36 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener,
         textViewSimpleToast = (TextView)viewFragment.findViewById(R.id.textview_simple_toast);
         textViewCustomToast = (TextView)viewFragment.findViewById(R.id.textview_custom_toast);
         textViewTimerToast = (TextView)viewFragment.findViewById(R.id.textview_timer_toast);
+        textViewAnimateToast = (TextView)viewFragment.findViewById(R.id.textview_animate_toast);
         accountSpinner = (Spinner)viewFragment.findViewById(R.id.spinner_account);
+        languageSpinner = (Spinner)viewFragment.findViewById(R.id.spinner_language);
+        relativeLayoutPopup = (RelativeLayout)viewFragment.findViewById(R.id.relativelayout_main);
+        linearLayoutChangeLanguage = (LinearLayout) viewFragment.findViewById(R.id.ll_popup_layout);
+
         accountTypes =  new String[]{
                 getResources().getString(R.string.business_account),
                 getResources().getString(R.string.personal_account)
         };
         setSpinnerAdapter();
+        setSpinnerLanguageAdapter(true);
         setOnClickEvent();
+    }
 
+    private void setSpinnerLanguageAdapter(boolean flag) {
+        keyCode = 1;
+        if(currentPosition == 1)
+            customSpinnerLanguageAdapter = new CustomSpinnerLanguageAdapter(getActivity(),flagIcons1, keyCode, currentPosition);
+        else
+            customSpinnerLanguageAdapter = new CustomSpinnerLanguageAdapter(getActivity(),flagIcons2, keyCode, currentPosition);
+        languageSpinner.setAdapter(customSpinnerLanguageAdapter);
+        if(flag)
+            languageSpinner.setSelection(0);
     }
 
     private void setSpinnerAdapter() {
-        customSpinnerAdapter = new CustomSpinnerAdapter(getActivity(),accountTypes,accountIcons);
+        keyCode = 2;
+        currentPosition = 2;
+        customSpinnerAdapter = new CustomSpinnerAdapter(getActivity(),accountTypes,accountIcons,keyCode, currentPosition);
         accountSpinner.setAdapter(customSpinnerAdapter);
         accountSpinner.setSelection(0);
     }
@@ -109,8 +162,10 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener,
         textViewSimpleToast.setOnClickListener(this);
         textViewCustomToast.setOnClickListener(this);
         textViewTimerToast.setOnClickListener(this);
+        textViewAnimateToast.setOnClickListener(this);
         accountSpinner.setOnItemSelectedListener(this);
-
+        languageSpinner.setOnItemSelectedListener(this);
+        linearLayoutChangeLanguage.setOnClickListener(this);
     }
 
     @Override
@@ -127,9 +182,42 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener,
                 accountSpinner.setSelection(0);
                 accountSpinner.setEnabled(false);
                 break;
+            case R.id.textview_animate_toast:
+                customAnimationToast();
+                break;
+            case R.id.ll_popup_layout:
+                LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View popupWindow = inflater.inflate(R.layout.popup_change_language,null);
+                // Initialize a new instance of popup window
+                mPopupWindow = new PopupWindow(
+                        popupWindow,
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                // Set an elevation value for popup window
+                // Call requires API level 21
+                if(Build.VERSION.SDK_INT>=21){
+                    mPopupWindow.setElevation(5.0f);
+                }
+                ImageButton imageViewClose = (ImageButton)popupWindow.findViewById(R.id.ib_close);
+                imageViewClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mPopupWindow.dismiss();
+                    }
+                });
+                mPopupWindow.showAtLocation(relativeLayoutPopup, Gravity.CENTER,0,0);
+                break;
             default:
                 break;
         }
+    }
+
+    /**
+     *
+     */
+    private void customAnimationToast() {
+
     }
 
     /**
@@ -182,13 +270,24 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
         String accountType = accountTypes[position];
+        int positionNow = (position==0)?1:2;
 
-        if(accountType.equals(accountTypes[position])){
+        if (currentPosition == 1) {
+            currentPosition = 2;
+            //setSpinnerLanguageAdapter(false);
+            Toast.makeText(getActivity(), "Changed language is Myanma", Toast.LENGTH_SHORT).show();
+        } else if (currentPosition == 2){
+            currentPosition = 1;
+            //setSpinnerLanguageAdapter(false);
+            Toast.makeText(getActivity(), "Changed language is English", Toast.LENGTH_SHORT).show();
+        }
+        /*if(accountType.equals(accountTypes[position])){
             Toast.makeText(getActivity(), "Clicked My Business - "+accountType, Toast.LENGTH_SHORT).show();
+            currentPosition = 2;
         }
         else{
             Toast.makeText(getActivity(), "Clicked Me - "+accountType, Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 
     @Override

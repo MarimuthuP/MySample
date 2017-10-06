@@ -12,6 +12,8 @@ public class MyConstant {
         public static int INPUT_FIELD_KEY = 10;
         public static int POPUP_TYPE_KEY = 11;
         public static int TOAST_TYPE_KEY = 12;
+        public static int SEARCHVIEW_TYPE_KEY = 13;
+        public static int WEBVIEW_TYPE_KEY = 14;
     }
 
     public static class ListType{
