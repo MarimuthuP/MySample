@@ -1,145 +1,342 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/appBackcolor"
     android:clickable="false"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/margin_15"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <!-- first option -->
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview_first"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:background="@drawable/ripple"
-            android:clickable="true"
-            app:cardCornerRadius="@dimen/margin_2"
-            app:cardElevation="@dimen/margin_5">
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_15"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/margin_45">
 
-            <TextView
-                android:id="@+id/tv_first_option"
+            <!--Profile picture layout-->
+            <FrameLayout
+                android:id="@+id/fl_profile_pic_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ripple"
-                android:clickable="true"
-                android:drawableRight="@drawable/ic_chevron_right_black_24dp"
-                android:padding="@dimen/margin_15"
-                android:text="@string/input_fields"
-                android:textSize="@dimen/font_16" />
+                android:padding="@dimen/margin_1">
 
-        </android.support.v7.widget.CardView>
+                <!--profile pic inner layout-->
+                <FrameLayout
+                    android:id="@+id/fl_profile_pic_inner_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/margin_1">
 
-        <!-- second option -->
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview_second"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_15"
-            android:animateLayoutChanges="true"
-            android:background="@drawable/ripple"
-            android:clickable="true"
-            app:cardCornerRadius="@dimen/margin_2"
-            app:cardElevation="@dimen/margin_5">
+                    <!--profile rounded image-->
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/margin_1">
 
-            <TextView
-                android:id="@+id/tv_second_option"
+                        <android.support.v7.widget.CardView
+                            android:layout_width="@dimen/margin_110"
+                            android:layout_height="@dimen/margin_110"
+                            android:layout_centerHorizontal="true"
+                            android:layout_margin="@dimen/margin_5"
+                            android:background="@color/cardview_light_background"
+                            android:innerRadius="0dp"
+                            android:shape="ring"
+                            app:cardCornerRadius="@dimen/margin_55"
+                            app:cardElevation="@dimen/margin_5">
+
+                            <com.maram.myexample.View.customView.CircleImageView
+                                android:id="@+id/iv_profile_image"
+                                android:layout_width="108dp"
+                                android:layout_height="108dp"
+                                android:layout_gravity="center"
+                                android:scaleType="matrix"
+                                android:src="@drawable/leonardo" />
+
+                        </android.support.v7.widget.CardView>
+
+                    </RelativeLayout>
+
+                    <!--small rounded image-->
+                    <android.support.v7.widget.CardView
+                        android:layout_width="@dimen/margin_25"
+                        android:layout_height="@dimen/margin_25"
+                        android:layout_gravity="right|bottom"
+                        android:layout_margin="@dimen/margin_7"
+                        android:background="@color/cardview_light_background"
+                        android:innerRadius="0dp"
+                        android:shape="ring"
+                        app:cardCornerRadius="@dimen/margin_12"
+                        app:cardElevation="@dimen/margin_2">
+
+                        <ImageView
+                            android:id="@+id/iv_camera"
+                            android:layout_width="@dimen/margin_20"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_camera_icon" />
+
+                    </android.support.v7.widget.CardView>
+
+                </FrameLayout>
+
+            </FrameLayout>
+
+            <!-- first option -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview_first"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
                 android:background="@drawable/ripple"
                 android:clickable="true"
-                android:drawableRight="@drawable/ic_chevron_right_black_24dp"
-                android:padding="@dimen/margin_15"
-                android:text="@string/popup_type"
-                android:textSize="@dimen/font_16" />
+                app:cardCornerRadius="@dimen/margin_2"
+                app:cardElevation="@dimen/margin_5">
 
-        </android.support.v7.widget.CardView>
+                <TextView
+                    android:id="@+id/tv_first_option"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ripple"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                    android:padding="@dimen/margin_15"
+                    android:text="@string/input_fields"
+                    android:textSize="@dimen/font_16" />
 
-        <!-- Third option -->
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview_third"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_15"
-            android:animateLayoutChanges="true"
-            android:background="@drawable/ripple"
-            android:clickable="true"
-            app:cardCornerRadius="@dimen/margin_2"
-            app:cardElevation="@dimen/margin_5">
+            </android.support.v7.widget.CardView>
 
-            <TextView
-                android:id="@+id/tv_third_option"
+            <!-- second option -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview_second"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_15"
+                android:animateLayoutChanges="true"
                 android:background="@drawable/ripple"
                 android:clickable="true"
-                android:drawableRight="@drawable/ic_chevron_right_black_24dp"
-                android:padding="@dimen/margin_15"
-                android:text="@string/custom_toast_type"
-                android:textSize="@dimen/font_16" />
+                app:cardCornerRadius="@dimen/margin_2"
+                app:cardElevation="@dimen/margin_5">
 
+                <TextView
+                    android:id="@+id/tv_second_option"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ripple"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                    android:padding="@dimen/margin_15"
+                    android:text="@string/popup_type"
+                    android:textSize="@dimen/font_16" />
 
-        </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>
 
-        <!-- Fourth option -->
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview_four"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_15"
-            android:animateLayoutChanges="true"
-            android:background="@drawable/ripple"
-            android:clickable="true"
-            app:cardCornerRadius="@dimen/margin_2"
-            app:cardElevation="@dimen/margin_5">
-
-            <TextView
-                android:id="@+id/tv_four_option"
+            <!-- Third option -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview_third"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_15"
+                android:animateLayoutChanges="true"
                 android:background="@drawable/ripple"
                 android:clickable="true"
-                android:drawableRight="@drawable/ic_chevron_right_black_24dp"
-                android:padding="@dimen/margin_15"
-                android:text="@string/custom_searchview_type"
-                android:textSize="@dimen/font_16" />
+                app:cardCornerRadius="@dimen/margin_2"
+                app:cardElevation="@dimen/margin_5">
+
+                <TextView
+                    android:id="@+id/tv_third_option"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ripple"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                    android:padding="@dimen/margin_15"
+                    android:text="@string/custom_toast_type"
+                    android:textSize="@dimen/font_16" />
 
 
-        </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>
 
-        <!-- Fourth option -->
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview_five"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_15"
-            android:animateLayoutChanges="true"
-            android:background="@drawable/ripple"
-            android:clickable="true"
-            app:cardCornerRadius="@dimen/margin_2"
-            app:cardElevation="@dimen/margin_5">
-
-            <TextView
-                android:id="@+id/tv_five_option"
+            <!-- Fourth option -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview_four"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_15"
+                android:animateLayoutChanges="true"
                 android:background="@drawable/ripple"
                 android:clickable="true"
-                android:drawableRight="@drawable/ic_chevron_right_black_24dp"
-                android:padding="@dimen/margin_15"
-                android:text="@string/custom_webview_type"
-                android:textSize="@dimen/font_16" />
+                app:cardCornerRadius="@dimen/margin_2"
+                app:cardElevation="@dimen/margin_5">
+
+                <TextView
+                    android:id="@+id/tv_four_option"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ripple"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                    android:padding="@dimen/margin_15"
+                    android:text="@string/custom_searchview_type"
+                    android:textSize="@dimen/font_16" />
 
 
-        </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>
 
-    </LinearLayout>
+            <!-- Webview option -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview_five"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_15"
+                android:animateLayoutChanges="true"
+                android:background="@drawable/ripple"
+                android:clickable="true"
+                app:cardCornerRadius="@dimen/margin_2"
+                app:cardElevation="@dimen/margin_5">
+
+                <TextView
+                    android:id="@+id/tv_five_option"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ripple"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                    android:padding="@dimen/margin_15"
+                    android:text="@string/custom_webview_type"
+                    android:textSize="@dimen/font_16" />
+
+
+            </android.support.v7.widget.CardView>
+
+            <!-- Google Autocomplete option -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview_six"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_15"
+                android:animateLayoutChanges="true"
+                android:background="@drawable/ripple"
+                android:clickable="true"
+                android:visibility="visible"
+                app:cardCornerRadius="@dimen/margin_2"
+                app:cardElevation="@dimen/margin_5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/tv_six_option"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@drawable/ripple"
+                        android:clickable="true"
+                        android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                        android:padding="@dimen/margin_15"
+                        android:text="@string/custom_google_autocomplete"
+                        android:textSize="@dimen/font_16" />
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <!-- Face detection option -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview_seven"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_15"
+                android:animateLayoutChanges="true"
+                android:background="@drawable/ripple"
+                android:clickable="true"
+                android:visibility="visible"
+                app:cardCornerRadius="@dimen/margin_2"
+                app:cardElevation="@dimen/margin_5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <ImageView
+                        android:id="@+id/image_camera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/margin_5"
+                        android:background="@drawable/ic_camera_icon"
+                        android:backgroundTint="@color/appBackcolor"
+                        android:padding="@dimen/margin_5" />
+
+                    <TextView
+                        android:id="@+id/tv_seven_option"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@drawable/ripple"
+                        android:clickable="true"
+                        android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                        android:padding="@dimen/margin_15"
+                        android:text="@string/custom_camera_type"
+                        android:textSize="@dimen/font_16" />
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <!-- Camera flash option -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview_eight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_15"
+                android:animateLayoutChanges="true"
+                android:background="@drawable/ripple"
+                android:clickable="true"
+                android:visibility="visible"
+                app:cardCornerRadius="@dimen/margin_2"
+                app:cardElevation="@dimen/margin_5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/tv_eight_option"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@drawable/ripple"
+                        android:clickable="true"
+                        android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+                        android:padding="@dimen/margin_15"
+                        android:text="@string/custom_flash_type"
+                        android:textSize="@dimen/font_16" />
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

@@ -53,9 +53,11 @@
             <group android:checkableBehavior="single">
 
                 <item
+                    android:id="@+id/menu_sub1"
                     android:icon="@drawable/ic_answer"
                     android:title="Sub item 1" />
                 <item
+                    android:id="@+id/menu_sub2"
                     android:icon="@drawable/ic_opening_hour"
                     android:title="Sub item 2" />
             </group>

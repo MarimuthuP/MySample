@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.maram.myexample.View.Converter.MyanmaTextView
+        android:id="@+id/text_street_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_5"
+        android:padding="@dimen/margin_5"
+        android:text="@string/alert_list_title"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_16" />
+
+    <com.maram.myexample.View.Converter.MyanmaTextView
+        android:id="@+id/text_street_sub_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_5"
+        android:padding="@dimen/margin_5"
+        android:text="@string/alert_list_title"
+        android:textColor="@color/greenColor"
+        android:textSize="@dimen/font_13" />
+
+</LinearLayout>

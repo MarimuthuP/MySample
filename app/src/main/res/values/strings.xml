@@ -1,11 +1,16 @@
 <resources>
     <string name="app_name">MyExample</string>
+    <string name="allow_letters">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\u0020</string>
+    <string name="ele_letter_keys">ကခဂဃငစဆဇဈဉညဋဌဍဎဏတထဒဓနပဖဗဘမယရလဝသဟဠအေ ်   ိ  ္ ့  ံ ျ     ု  ဳ   ူ  ဴ  း  ၚ ွ  ီ ြ  ၤ   ဲ    ွ်   ၽႊ  ႏ  ၽြ    ႊ  ႈ  ဥ  ဧ ၿ   ၾ      ၌ ဋ ႑ ဍ   ၨ    ၳ  ၡ    ႅ   ၻ  ဉ    ဎ  ၺ  ႎ   ႍ `ါ  ႄ      ၶ    ၦ    ၱ   ၷ  ၼ  ဤ   ၸ    ၠ ၍ ႆ  ၥ ၮ   ၎ ဩ   ႀ      ဦ   ၢ႐ ဪ  ႁ    ႂ     ၯ  ၩ ၏ ာ\u0020</string>
     <string name="kyats">MMK</string>
     <string name="input_fields">Input Fields</string>
     <string name="popup_type">Types of Popup</string>
     <string name="custom_toast_type">Types of Toast</string>
     <string name="custom_searchview_type">SearchView</string>
     <string name="custom_webview_type">WebView</string>
+    <string name="custom_google_autocomplete">Google AutoComplete</string>
+    <string name="custom_camera_type">Face Detection Camera</string>
+    <string name="custom_flash_type">Camera Flash</string>
 
     <!--popup string-->
     <string name="simple_popup">Simple Default Popup</string>
@@ -21,9 +26,13 @@
     <string name="title_menu">Menu Option</string>
     <string name="title_checkbox">Material CheckBox</string>
     <string name="title_webview">WebView</string>
+    <string name="title_facecamera">Face Detection Camera</string>
     <string name="title_radiobox">Material Radio Button</string>
     <string name="title_toggle">Material Toggle Button</string>
     <string name="title_simple_list">Simple List</string>
+    <string name="title_flash_camera">Camera Flash</string>
+    <string name="title_front_flash">Front Flash </string>
+    <string name="title_back_flash">Back Flash </string>
 
     <!--alert string-->
     <string name="alert_title">Alert Dialog</string>
@@ -56,4 +65,19 @@
 
     <!--search-->
     <string name="search_hint">Search here</string>
+
+    <string name="photo_msg">Please take a clear selfie. We will use this photo for OK $ account security.</string>
+    <string name="no_face_detected_more">No face detected. Required Face. please press capture button one more time to click your picture</string>
+    <string name="no_face_detected">OK $ account opening require to your face detection.</string>
+    <string name="more_face">"More than 1 faces are there Please take only your face "</string>
+    <string name="error_camera">Camera Error, Please try again</string>
+    <string name="camera_permission_error">	\ud83d\udcf7 Camera Permission Error\n OK $ app doesn\'t have camera access. Please go to settings and allow all permissions for security reasons If you denied any permission please uninstall app and install again. Make sure next time allow all permission</string>
+
+    <string name="place_autocomplete_key">AIzaSyBQFs9iTrFxeMaqAVsAFz7782YnN1e5rIQ</string>
+    <string name="error_autocomplete">Error getting autocomplete prediction API call: </string>
+    <string name="place_details">&lt;b&gt;%1$s&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Place Id: %2$s&lt;/i&gt;&lt;br/&gt;Address: %3$s&lt;br/&gt;Phone: %4$s&lt;br/&gt;Website: %5$s</string>
+    <string name="autocomplete_hint">Enter place name or address</string>
+    <string name="selected_place">Last Selected Place:</string>
+    <string name="clear_text">Clear Text</string>
+    <string name="permdesc_flashlight">Flash</string>
 </resources>
