@@ -1,5 +1,10 @@
 package com.maram.myexample.View.Activity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -8,7 +13,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -20,13 +24,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.maram.myexample.Presenter.IMainCommunicator;
+import com.maram.myexample.Presenter.ICommunicateClick;
 import com.maram.myexample.Presenter.IEnteredAmountValidation;
+import com.maram.myexample.Presenter.IMainCommunicator;
 import com.maram.myexample.Presenter.IPopupCommunicatorFromList;
 import com.maram.myexample.Presenter.IPopupItemClickedFromList;
 import com.maram.myexample.Presenter.IReceiveAmount;
 import com.maram.myexample.R;
 import com.maram.myexample.View.Fragment.CheckBoxTypeFragment;
+import com.maram.myexample.View.Fragment.FaceDetectionFragment;
+import com.maram.myexample.View.Fragment.FlashFragment;
 import com.maram.myexample.View.Fragment.InputFieldListFragment;
 import com.maram.myexample.View.Fragment.MenuFragment;
 import com.maram.myexample.View.Fragment.PopupTypeFragment;
@@ -37,41 +44,35 @@ import com.maram.myexample.View.Fragment.ToggleButtonTypeFragment;
 import com.maram.myexample.View.Fragment.WebViewFragment;
 import com.maram.myexample.View.Utils.MyConstant;
 
-public class MainActivity extends AppCompatActivity implements IEnteredAmountValidation, IMainCommunicator, IPopupCommunicatorFromList, SearchView.OnQueryTextListener {
+import java.io.File;
 
-    /**
-     * This is the framelayout variable to get the details.
-     */
-    FrameLayout mainFrame;
+public class MainActivity extends AppCompatActivity implements IEnteredAmountValidation, IMainCommunicator, IPopupCommunicatorFromList, SearchView.OnQueryTextListener {
 
     /**
      *  This is the interface variable to access their method.
      */
     public IReceiveAmount iReceiveAmount;
-
+    public IPopupItemClickedFromList iPopupItemClickedFromList;
+    public ICommunicateClick iCommunicateClick;
+    /**
+     * This is the framelayout variable to get the details.
+     */
+    FrameLayout mainFrame;
     /**
      * Toolbar field
      */
     Toolbar toolBarTop;
-
     /**
      * Toolbar Title TextView
      */
     TextView tvToolBarTitle;
-
     /**
      * Drawer Layout
      */
     DrawerLayout drawerLayoutLeftMenu;
-
     NavigationView navigationViewDrawer;
-
-    public IPopupItemClickedFromList iPopupItemClickedFromList;
-
     ImageView ivHeaderPhoto;
-
     Menu menu;
-
     MenuItem searchMenuItem;
 
     @Override
@@ -118,6 +119,12 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
                 fragmentClass = ToggleButtonTypeFragment.class;
                 break;
             case R.id.menu_snackbar:
+                fragmentClass = ToastTypeFragment.class;
+                break;
+            case R.id.menu_sub1:
+                fragmentClass = ToastTypeFragment.class;
+                break;
+            case R.id.menu_sub2:
                 fragmentClass = ToastTypeFragment.class;
                 break;
             default:
@@ -179,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
                 drawerLayoutLeftMenu.openDrawer(Gravity.START);
             }
         });
+
     }
 
     /**
@@ -205,7 +213,6 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
         drawerLayoutLeftMenu = (DrawerLayout)findViewById(R.id.newdrawerlayout);
         navigationViewDrawer = (NavigationView)findViewById(R.id.navigationview_menu);
 
-
         //View headerLayout = navigationViewDrawer.inflateHeaderView(R.layout.navigation_header); // Inflate the header view at runtime
         //ivHeaderPhoto = headerLayout.findViewById(R.id.profile_image_view); // We can now look up items within the header if needed
 
@@ -218,10 +225,11 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
         ivHeaderPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ivHeaderPhoto.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_help));
+                //ivHeaderPhoto.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_help));
                 Toast.makeText(MainActivity.this, "Clicked photo", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     @Override
@@ -269,7 +277,7 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
         }
         if(keyValue == MyConstant.NavigateScreen.SEARCHVIEW_TYPE_KEY){
 
-            showOverflowMenu(false);
+            showOverflowMenu(true);
             fragmentObj = new SimpleRecyclerView();
             Bundle bundle = new Bundle();
             fragmentObj.setArguments(bundle);
@@ -281,7 +289,7 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
         }
         if(keyValue == MyConstant.NavigateScreen.WEBVIEW_TYPE_KEY){
 
-            showOverflowMenu(false);
+            showOverflowMenu(true);
             fragmentObj = new WebViewFragment();
             Bundle bundle = new Bundle();
             fragmentObj.setArguments(bundle);
@@ -291,13 +299,33 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
                     .addToBackStack("MENU_LIST_OPTION")
                     .commitAllowingStateLoss();
         }
+        if (keyValue == MyConstant.NavigateScreen.CAMERA_TYPE_KEY) {
+
+            startActivity(new Intent(this, GooglePlaceAutoComplete.class));
+        }
+
+        if (keyValue == MyConstant.NavigateScreen.FACE_TYPE_KEY) {
+
+            Intent cameraIntent = new Intent(this, FaceDetection.class);
+            startActivityForResult(cameraIntent, 102);
+        }
+        if (keyValue == MyConstant.NavigateScreen.FLASH_TYPE_KEY) {
+
+            startActivity(new Intent(this, TakePicture.class));
+
+        }
     }
 
-    private void showOverflowMenu(boolean b) {
+    /**
+     * which is used to showing the action bar menu
+     *
+     * @param isVisible used to show and hide by this value
+     */
+    private void showOverflowMenu(boolean isVisible) {
         if(menu == null)
             return;
-        menu.setGroupVisible(R.id.main_menu_group, b);
-        menu.setGroupVisible(R.id.search_group, b?false:true);
+        menu.setGroupVisible(R.id.main_menu_group, isVisible);
+        menu.setGroupVisible(R.id.search_group, !isVisible);
     }
 
     @Override
@@ -331,6 +359,16 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
                 showOverflowMenu(true);
             }
             if(fragment instanceof WebViewFragment){
+                getSupportFragmentManager().popBackStackImmediate();
+                tvToolBarTitle.setText(getResources().getString(R.string.title_menu));
+                showOverflowMenu(true);
+            }
+            if (fragment instanceof FaceDetectionFragment) {
+                getSupportFragmentManager().popBackStackImmediate();
+                tvToolBarTitle.setText(getResources().getString(R.string.title_menu));
+                showOverflowMenu(true);
+            }
+            if (fragment instanceof FlashFragment) {
                 getSupportFragmentManager().popBackStackImmediate();
                 tvToolBarTitle.setText(getResources().getString(R.string.title_menu));
                 showOverflowMenu(true);
@@ -379,5 +417,32 @@ public class MainActivity extends AppCompatActivity implements IEnteredAmountVal
     @Override
     public boolean onQueryTextChange(String newText) {
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 102) {
+            try {
+                String path = data.getExtras().getString("path");
+                if (data != null) {
+                    Bitmap bitmapImage = BitmapFactory.decodeFile(path);
+                    int nh = (int) (bitmapImage.getHeight() * (150.0 / bitmapImage.getWidth()));
+                    Bitmap scaled = Bitmap.createScaledBitmap(bitmapImage, 200, nh, true);
+                    //mUserPic.setImageDrawable(new BitmapDrawable(getResources(), scaled));
+                    //imageViewProfilePic.setImageDrawable(new BitmapDrawable(getResources(), scaled));
+                    iCommunicateClick.setImage(scaled);
+                    ivHeaderPhoto.setImageDrawable(new BitmapDrawable(getResources(), scaled));
+
+                    File f = new File(path);
+                    if (f.exists()) {
+                        f.delete();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return;
+        }
     }
 }

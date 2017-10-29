@@ -79,6 +79,15 @@ public class PojoAlertMessage implements Serializable {
         this.isCancelButton = isCancelButton;
     }
 
+    public PojoAlertMessage(String alertTitle, int alertIcon, String okButtonText, boolean isAlertTitle, boolean isAlertIcon, boolean isOkButton) {
+        this.alertTitle = alertTitle;
+        this.alertIcon = alertIcon;
+        this.okButtonText = okButtonText;
+        this.isAlertTitle = isAlertTitle;
+        this.isAlertIcon = isAlertIcon;
+        this.isOkButton = isOkButton;
+    }
+
     public String getAlertTitle() {
         return alertTitle;
     }
