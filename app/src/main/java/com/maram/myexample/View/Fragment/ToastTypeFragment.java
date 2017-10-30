@@ -2,7 +2,6 @@ package com.maram.myexample.View.Fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,9 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -74,23 +71,17 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener,
 
     Spinner accountSpinner;
 
-    Spinner languageSpinner;
+    //Spinner languageSpinner;
 
     String typeStr;
 
-    LinearLayout linearLayoutChangeLanguage;
-
-    private PopupWindow mPopupWindow;
-
+    //LinearLayout linearLayoutChangeLanguage;
     RelativeLayout relativeLayoutPopup;
-
     Context mContext;
-
     ImageView imageViewPopupCloseButton;
-
     int keyCode = 0;
-
     int currentPosition = 1;
+    private PopupWindow mPopupWindow;
 
     @Override
     public void onAttach(Activity activity) {
@@ -118,14 +109,14 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener,
      *  Which is used to initiate the fragment fields.
      */
     private void initFragments() {
-        textViewSimpleToast = (TextView)viewFragment.findViewById(R.id.textview_simple_toast);
-        textViewCustomToast = (TextView)viewFragment.findViewById(R.id.textview_custom_toast);
-        textViewTimerToast = (TextView)viewFragment.findViewById(R.id.textview_timer_toast);
-        textViewAnimateToast = (TextView)viewFragment.findViewById(R.id.textview_animate_toast);
-        accountSpinner = (Spinner)viewFragment.findViewById(R.id.spinner_account);
-        languageSpinner = (Spinner)viewFragment.findViewById(R.id.spinner_language);
-        relativeLayoutPopup = (RelativeLayout)viewFragment.findViewById(R.id.relativelayout_main);
-        linearLayoutChangeLanguage = (LinearLayout) viewFragment.findViewById(R.id.ll_popup_layout);
+        textViewSimpleToast = viewFragment.findViewById(R.id.textview_simple_toast);
+        textViewCustomToast = viewFragment.findViewById(R.id.textview_custom_toast);
+        textViewTimerToast = viewFragment.findViewById(R.id.textview_timer_toast);
+        textViewAnimateToast = viewFragment.findViewById(R.id.textview_animate_toast);
+        accountSpinner = viewFragment.findViewById(R.id.spinner_account);
+        //languageSpinner = (Spinner)viewFragment.findViewById(R.id.spinner_language);
+        relativeLayoutPopup = viewFragment.findViewById(R.id.relativelayout_main);
+        //linearLayoutChangeLanguage = (LinearLayout) viewFragment.findViewById(R.id.ll_popup_layout);
 
         accountTypes =  new String[]{
                 getResources().getString(R.string.business_account),
@@ -142,9 +133,9 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener,
             customSpinnerLanguageAdapter = new CustomSpinnerLanguageAdapter(getActivity(),flagIcons1, keyCode, currentPosition);
         else
             customSpinnerLanguageAdapter = new CustomSpinnerLanguageAdapter(getActivity(),flagIcons2, keyCode, currentPosition);
-        languageSpinner.setAdapter(customSpinnerLanguageAdapter);
+        /*languageSpinner.setAdapter(customSpinnerLanguageAdapter);
         if(flag)
-            languageSpinner.setSelection(0);
+            languageSpinner.setSelection(0);*/
     }
 
     private void setSpinnerAdapter() {
@@ -164,8 +155,8 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener,
         textViewTimerToast.setOnClickListener(this);
         textViewAnimateToast.setOnClickListener(this);
         accountSpinner.setOnItemSelectedListener(this);
-        languageSpinner.setOnItemSelectedListener(this);
-        linearLayoutChangeLanguage.setOnClickListener(this);
+        //languageSpinner.setOnItemSelectedListener(this);
+        //linearLayoutChangeLanguage.setOnClickListener(this);
     }
 
     @Override
@@ -185,7 +176,7 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener,
             case R.id.textview_animate_toast:
                 customAnimationToast();
                 break;
-            case R.id.ll_popup_layout:
+            /*case R.id.ll_popup_layout:
                 LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View popupWindow = inflater.inflate(R.layout.popup_change_language,null);
                 // Initialize a new instance of popup window
@@ -207,7 +198,7 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener,
                     }
                 });
                 mPopupWindow.showAtLocation(relativeLayoutPopup, Gravity.CENTER,0,0);
-                break;
+                break;*/
             default:
                 break;
         }
@@ -227,7 +218,7 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener,
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View layout = inflater.inflate(R.layout.toast_custom_layout, (ViewGroup)getActivity().findViewById(R.id.custom_toast_container));
 
-        TextView text = (TextView) layout.findViewById(R.id.text);
+        TextView text = layout.findViewById(R.id.text);
         text.setText("This is a custom toast");
 
         Toast toast = new Toast(getActivity());
@@ -257,7 +248,7 @@ public class ToastTypeFragment extends Fragment implements View.OnClickListener,
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View layout = inflater.inflate(R.layout.toast_custom_layout, (ViewGroup)getActivity().findViewById(R.id.custom_toast_container));
 
-        TextView text = (TextView) layout.findViewById(R.id.text);
+        TextView text = layout.findViewById(R.id.text);
         text.setText("This is a custom toast");
 
         Toast toast = new Toast(getActivity());

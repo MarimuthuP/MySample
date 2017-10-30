@@ -82,7 +82,11 @@ public class InputFieldListFragment extends Fragment implements IReceiveAmount, 
 
         editTextNameField.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
+                String text = s.toString();
+                if (text.contains("  ")) {
+                    text.replace("  ", " ");
+                }
             }
 
             @Override
@@ -92,10 +96,7 @@ public class InputFieldListFragment extends Fragment implements IReceiveAmount, 
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String text = editable.toString();
-                if (text.endsWith(" ")) {
-                    editTextNameField.setText(text.trim());
-                }
+
             }
         });
 
